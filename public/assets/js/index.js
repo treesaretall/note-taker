@@ -12,7 +12,6 @@ if (window.location.pathname === '/notes') {
   noteList = document.querySelectorAll('.list-container .list-group');
 }
 
-// Show an element
 const show = (elem) => {
   elem.style.display = 'inline';
 };
@@ -41,6 +40,7 @@ const saveNote = (note) =>
     },
     body: JSON.stringify(note),
   });
+
 
 const deleteNote = (id) =>
   fetch(`/api/db/${id}`, {
