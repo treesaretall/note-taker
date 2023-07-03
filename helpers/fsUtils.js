@@ -31,4 +31,11 @@ const readAndAppend = (content, file) => {
   });
 };
 
-module.exports = { readFromFile, writeToFile, readAndAppend };
+function clearJSONFile(filePath) {
+  const emptyData = []; // or {} for an empty object
+
+  fs.writeFileSync(filePath, JSON.stringify(emptyData));
+}
+
+
+module.exports = { readFromFile, writeToFile, readAndAppend, clearJSONFile };

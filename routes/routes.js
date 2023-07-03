@@ -3,9 +3,6 @@ const path = require('path');
 const notesRouter = require('./notes');
 const app = express();
 
-app.use('/db', notesRouter);
-app.get('/button-click', (req, res) => {
-    const filePath = path.join(__dirname, '../public/notes.html');
-    res.sendFile(filePath);
-})
+app.use('/notes', notesRouter);
+
 module.exports = app;
