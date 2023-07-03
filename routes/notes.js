@@ -44,19 +44,32 @@ notes.post('/', (req, res) => {
 });
 
 notes.delete('/:id', (req, res) => {
-  const found = noteDB.some(idFilter(req));
-  const newNoteDB = noteDB.filter(note => !idFilter(req)(note))
+ const { id } = req.params;
 
-  if (found) {
-    clearJSONFile('./db/db.json')
-    writeToFile('./db/db.json', newNoteDB)
-    res.json({
-      msg: 'Note deleted',
-      noteDB: newNoteDB
-    });
-  } else {
-    res.status(400).json({ msg: `No note with the id of ${req.params.id}` });
-  }
+ const notesIndex = noteDB.findIndex(p => p.note_id == id);
+
+  noteDB.splice(notesIndex, 1);
+  console.log(notesIndex)
+ return res.send("Note deleted successfully");
 });
+
+
+
+// notes.delete('/:id', (req, res) => {
+//   const found = noteDB.some(idFilter(req));
+//   const newNoteDB = noteDB.filter(note => !idFilter(req)(note))
+//   console.info(`${req.method} request received to delete note ${req.params.id}`);
+
+//   if (found) {
+//     clearJSONFile('./db/db.json')
+//     writeToFile('./db/db.json', newNoteDB)
+//     res.json({
+//       msg: 'Note deleted',
+//       noteDB: newNoteDB
+//     });
+//   } else {
+//     res.status(400).json({ msg: `No note with the id of ${req.params.id}` });
+//   }
+// });
 
 module.exports = notes;
