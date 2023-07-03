@@ -59,41 +59,4 @@ notes.delete('/:id', (req, res) => {
   }
 });
 
-
-// notes.delete('/:id', (req, res) => {
-//   console.info(`${req.method} request received to delete note ${req.params.id}`);
-//   const paramId = req.params.id;
-//   const found = noteDB.some(element => element.note_id === paramId);
-//   let indexToFind = -1;
-//   console.log(found);
-
-//   noteDB.forEach((element, index) => {
-//     if (element.note_id === paramId) {
-//       indexToFind = index;
-//     }
-//   });
-
-//   if (found) {
-//     noteDB.splice(indexToFind, 1);
-//     } else {
-//     res.json('Note not found');
-//   }
-// });
-
-
 module.exports = notes;
-
-
-// --------------------------------------- *//
-
-// notes.delete('/:id', (req, res) => {
-//   console.info(`${req.method} request recieved to delete note ${req.params.id}`);
-//   const paramId = req.params.id;
-//   noteDB.forEach(element => {
-//     if (element.note_id === paramId) {
-//       noteDB.splice(noteDB.indexOf(element), 1);
-//       res.json(`Note deleted successfully 🚀`);
-//     } 
-//   });
-// })
- 
