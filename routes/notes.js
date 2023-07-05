@@ -2,7 +2,7 @@ const notes = require('express').Router();
 const { readFromFile, readAndAppend, writeToFile, clearJSONFile } = require('../helpers/fsUtils');
 const uuid = require('../helpers/uuid');
 const noteDB = require('../db/db.json');
-const idFilter = req => note => note.note_id === req.params.id;
+const idFilter = req => note => note.note_id == req.params.id;
 
 
 notes.get('/', (req, res) => {
@@ -41,22 +41,22 @@ notes.post('/', (req, res) => {
   }
 });
 
-// notes.delete('/:id', (req, res) => {
-//   const found = noteDB.some(idFilter(req));
-//   const newNoteDB = noteDB.filter(note => !idFilter(req)(note))
-//   console.info(`${req.method} request received to delete note ${req.params.id}`);
+notes.delete('/:id', (req, res) => {
+  const found = noteDB.some(idFilter(req));
+  const newNoteDB = noteDB.filter(note => !idFilter(req)(note))
+  console.info(`${req.method} request received to delete note ${req.params.id}`);
 
-//   if (found) {
-//     clearJSONFile('./db/db.json')
-//     writeToFile('./db/db.json', newNoteDB)
-//     res.json({
-//       msg: 'Note deleted',
-//       noteDB: newNoteDB
-//     });
-//   } else {
-//     res.status(400).json({ msg: `No note with the id of ${req.params.id}` });
-//   }
-// });
+  if (found) {
+    clearJSONFile('./db/db.json')
+    writeToFile('./db/db.json', newNoteDB)
+    res.json({
+      msg: 'Note deleted',
+      noteDB: newNoteDB
+    });
+  } else {
+    res.status(400).json({ msg: `No note with the id of ${req.params.id}` });
+  }
+});
 
 
 // notes.delete('/:id', (req, res) => {
@@ -72,16 +72,16 @@ notes.post('/', (req, res) => {
 //   };
 // });
 
-notes.delete('/:id', (req, res) => {
-  console.info(`${req.method} request received for note ${req.params.id}`);
-  noteDB.forEach((note, index) => {
-    if (note.note_id == req.params.id) {
-      noteDB.splice(index, 1);
-      res.json(`Note deleted successfully`);
-      console.log(note.note_id == req.params.id);
-    }
-  });
-});
+// notes.delete('/:id', (req, res) => {
+//   console.info(`${req.method} request received for note ${req.params.id}`);
+//   noteDB.forEach((note, index) => {
+//     if (note.note_id == req.params.id) {
+//       noteDB.splice(index, 1);
+//       res.json(`Note deleted successfully`);
+//       console.log(note.note_id == req.params.id);
+//     }
+//   });
+// });
 
 
 
